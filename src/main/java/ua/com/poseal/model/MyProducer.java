@@ -14,13 +14,11 @@ public class MyProducer implements Closeable {
 
     private String topic;
 
-    private KafkaProducer<String, String> kafkaProducer = getKafkaProducer();
+    private KafkaProducer<String, String> kafkaProducer;
 
     public MyProducer(String topic) {
         this.topic = topic;
-    }
-
-    public MyProducer() {
+        this.kafkaProducer = getKafkaProducer();
     }
 
     public KafkaProducer<String, String> getKafkaProducer() {
@@ -40,8 +38,6 @@ public class MyProducer implements Closeable {
         kafkaProducer
 				.send(new ProducerRecord(topic, key,value))
 				.get();
-
-		kafkaProducer.close();
     }
 
     @Override
